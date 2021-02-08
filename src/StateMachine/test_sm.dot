@@ -1,0 +1,49 @@
+digraph test {
+
+    node
+        [shape=Mrecord width=1.5];
+
+    subgraph cluster_TaskMap {
+
+        label="TaskMap";
+
+        //
+        // States (Nodes)
+        //
+
+        "TaskMap::Suspended"
+            [label="{Suspended}"];
+
+        "TaskMap::Running"
+            [label="{Running}"];
+
+        "TaskMap::Blocked"
+            [label="{Blocked}"];
+
+        "TaskMap::Stopping"
+            [label="{Stopping}"];
+
+        "TaskMap::Stopped"
+            [label="{Stopped}"];
+
+        //
+        // Transitions (Edges)
+        //
+
+        "TaskMap::Suspended" -> "TaskMap::Running"
+            [label="Start(timeslice: long)/\l"];
+
+        "TaskMap::Running" -> "TaskMap::Suspended"
+            [label="Suspend(number: int)\l\[ctxt->isProcessorAvailable(number) == true &&\l        ctxt->getConnection() == true\]/\l"];
+
+        "TaskMap::Running" -> "TaskMap::Stopped"
+            [label="Done()/\l"];
+
+        "TaskMap::Blocked" -> "TaskMap::Suspended"
+            [label="Unblock()/\l"];
+
+        "TaskMap::Stopping" -> "TaskMap::Stopped"
+            [label="Stopped()/\l"];
+    }
+
+}

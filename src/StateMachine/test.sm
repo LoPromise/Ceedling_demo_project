@@ -1,0 +1,81 @@
+///Adding Doxygen Comment to SourceFile
+%{
+/*!
+ * \page StateDiagram
+ * Page for StateDiagram
+ * \dotfile test_sm.dot
+ */
+%}
+
+// This FSM works for the Task class only and only the Task
+// class may instantiate it.
+%class Task
+%header Task.h
+
+%start Task::Idle
+%map TaskMap
+%%
+
+Suspended
+{
+    // Time to do more work.
+    // The timeslice duration is passed in as a transition
+    // argument.
+
+    Start(timeslice: long) // Transition
+
+        Running // End state
+
+        {
+            ... // Actions go here
+
+        }
+}
+
+Running
+{
+    Suspend(number: int)
+       [ctxt->isProcessorAvailable(number) == true &&
+        ctxt->getConnection() == true]
+        Suspended
+        {
+            ...
+        }
+
+    // Task has completed.
+
+    Done
+        Stopped
+        {
+            ...
+        }
+}
+
+Blocked
+{
+    // The task may continue working now.
+
+    Unblock
+        Suspended
+        {
+            ...
+        }
+}
+
+Stopping
+{
+    // The task is now stopped.
+
+    Stopped
+        Stopped
+        {
+            ...
+        }
+}
+
+Stopped
+{
+    ...
+}
+
+%%
