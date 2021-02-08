@@ -1,9 +1,19 @@
 /*!
- * \mainpage Test
- * \section sec1 Test
- * Docks go here
- * \section sec2 Test
- * \subsection sec2_1 Test
+ * \mainpage Project:
+ * \section sec1 TestReports
+ * - \ref TestReports
+ * - \ref Coverage
  */
+ 
+/*!
+ * \page Coverage
+ * \htmlonly <iframe src="../gcov/GcovCoverageResults.html" width="100%" height="1000vh">../gcov/GcovCoverageResults.html</iframe>
+ * \endhtmlonly
+ */
+ 
+ /*!
+  * \page TestReports
+  * \htmlinclude ../test/report.html
+  */
 
 
