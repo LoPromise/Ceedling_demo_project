@@ -3,6 +3,7 @@
  * \section sec1 TestReports
  * - \ref TestReports
  * - \ref Coverage
+ * - \ref VersionHistory
  */
  
 /*!
@@ -16,4 +17,7 @@
   * \htmlinclude ../test/report.html
   */
 
-
+ /*!
+  * \page VersionHistory
+  * \htmlinclude ../docs/log.html
+  */

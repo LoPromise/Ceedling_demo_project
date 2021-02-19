@@ -23,6 +23,7 @@
   </head>
   <body>
     <center>
+    <h1>TestReports</h1>
     <table>
     	<tr>
 	    	<th>Tests</th>

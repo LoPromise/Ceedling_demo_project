@@ -1,3 +1,7 @@
 externalTools/SMC/*.jar
 externalTools/SMC/*.h
 build
+externalTools/dbcc/dbccc
+externalTools/dbcc/dbcc/*
+
+
