@@ -4,7 +4,7 @@ require "net/http"
 namespace :dbc do
  task :fetch do
    Dir.chdir("externalTools/dbcc") do
-    sh "git clone https://github.com/howerj/dbcc.git"
+    #sh "git clone https://github.com/howerj/dbcc.git"
     Dir.chdir("dbcc") do
       sh "make -j4"
       sh "cp dbcc ../dbccc"

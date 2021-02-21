@@ -42,6 +42,9 @@
     - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4
     - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/third_party/CMSIS/Include
     - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4/driverlib
+    - /home/markus/ti/FreeRTOSv202012.00/FreeRTOS/Source/include
+    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/kernel/freertos/builds/MSP432E411Y_BGAEVM/release
+    - /home/markus/ti/FreeRTOSv202012.00/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1
     - externalTools/SMC
 #  :support:
 #    - test/support

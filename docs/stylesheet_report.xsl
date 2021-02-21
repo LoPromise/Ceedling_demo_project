@@ -44,9 +44,9 @@
       <tr>
         <th>Sucessful Tests</th>
       </tr>
-      <xsl:for-each select="TestRun/SuccessfulTests">
+      <xsl:for-each select="TestRun/SuccessfulTests/Test">
       <tr>
-        <td><xsl:value-of select="Test/Name"/></td>
+        <td><xsl:value-of select="Name"/></td>
       </tr>
       </xsl:for-each>
     </table>
@@ -54,9 +54,9 @@
       <tr>
         <th>Failed Tests</th>
       </tr>
-      <xsl:for-each select="TestRun/FailedTests">
+      <xsl:for-each select="TestRun/FailedTests/Test">
       <tr>
-        <td><xsl:value-of select="Test/Name"/></td>
+        <td><xsl:value-of select="Name"/></td>
       </tr>
       </xsl:for-each>
     </table>
@@ -64,9 +64,9 @@
       <tr>
         <th>Ignored Tests</th>
       </tr>
-      <xsl:for-each select="TestRun/IgnoredTests">
+      <xsl:for-each select="TestRun/IgnoredTests/Test">
       <tr>
-        <td><xsl:value-of select="Test/Name"/></td>
+        <td><xsl:value-of select="Name"/></td>
       </tr>
       </xsl:for-each>
     </table>
