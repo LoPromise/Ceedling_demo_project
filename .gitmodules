@@ -1,3 +1,3 @@
-[submodule "dbcc"]
+[submodule "externalTools/dbcc/dbcc"]
 	path = externalTools/dbcc/dbcc
 	url = https://github.com/howerj/dbcc.git
