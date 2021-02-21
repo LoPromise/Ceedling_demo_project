@@ -19,25 +19,32 @@
 #  :use_assembly: TRUE
 
 :release_build:
-  :output: MyApp.out
+  :output: MyApp.axp
   :use_assembly: FALSE
 
 :environment:
+  - path:
+    - "/home/markus/ti/gcc-arm-none-eabi-9-2019-q4-major/bin:"
+    - "#{ENV['PATH']}"
 
 :extension:
-  :executable: .out
+  :executable: .bin
 
 :paths:
   :test:
     - +:test/**
-    - -:test/support
+#    - -:test/support
   :source:
     - src/**
-    - externalTools/**
-    #- /home/markus/eclipse-workspace/CmakeUnity/ceedlingTest/tiva-c/
-    #- /home/markus/eclipse-workspace/CmakeUnity/ceedlingTest/tiva-c/driverlib
-  :support:
-    - test/support
+    #- 
+    #- 
+  :include:
+    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4
+    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/third_party/CMSIS/Include
+    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4/driverlib
+    - externalTools/SMC
+#  :support:
+#    - test/support
   :libraries: []
 
 :defines:
@@ -80,7 +87,41 @@
     :html_medium_threshold: 75
     :html_high_threshold: 90
 
-#:tools:
+:tools:
+  :release_compiler:
+    :executable: arm-none-eabi-gcc
+    :arguments:
+      - ${1}
+      - -mthumb
+      - -mcpu=cortex-m4
+      - -march=armv7e-m
+      - -mfloat-abi=hard
+      - -mfpu=fpv4-sp-d16
+      - -ffunction-sections
+      - -fdata-sections
+      - -MD
+      - -std=c99
+      - -Wall
+      - -pedantic
+      - -c
+      - -Os
+      - -Wunused
+      - -Wunknown-pragmas
+      - -fno-builtin-malloc
+      - -mabi=aapcs
+      - --specs=nano.specs
+      - -I"$": COLLECTION_PATHS_INCLUDE
+      - -Dgcc
+      - -o ${2}
+  :release_linker:
+    :executable: arm-none-eabi-ld
+    :arguments: 
+      - -T project.ld
+      - --entry ResetISR
+      - --gc-sections
+      - ${1}
+      - -o ${2}
+      - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4/driverlib/lib/gcc/m4f/msp432e4_driverlib.a
 # Ceedling defaults to using gcc for compiling, linking, etc.
 # As [:tools] is blank, gcc will be used (so long as it's in your system path)
 # See documentation to configure a given toolchain for use

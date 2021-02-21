@@ -2,16 +2,20 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-//#include "inc/hw_memmap.h"
-//#include "driverlib/gpio.h"
+
+#define TEST
+#include <gpio.h>
+#include <inc/msp432e411y.h>
+
+
 
 void led_turn_on(void)
 {
-  //GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, GPIO_PIN_2);
+  GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 1);
 }
 
 void led_turn_off(void)
 {
-//  GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0);
+  GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0);
 }
 
