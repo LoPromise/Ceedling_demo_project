@@ -4,6 +4,7 @@
  * - \ref TestReports
  * - \ref Coverage
  * - \ref VersionHistory
+ * - \ref dbcFile
  */
  
 /*!
@@ -20,4 +21,9 @@
  /*!
   * \page VersionHistory
   * \htmlinclude ../docs/log.html
+  */
+  
+   /*!
+  * \page dbcFile
+  * \htmlinclude ../docs/dbc.html
   */

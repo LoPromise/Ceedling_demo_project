@@ -37,6 +37,8 @@ namespace :dbc do
   Dir.chdir("#{path}") do
     sh "(#{current_root}/dbccc -x #{filename})"
   end
+  #generate dbc html
+  sh ("xsltproc #{PROJECT_ROOT}/docs/stylesheet_dbc.xsl #{path}/#{filenameNoEnding}.xml > build/artifacts/docs/dbc.html")
  end
  
  task :builddbcDocs do

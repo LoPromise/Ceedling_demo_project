@@ -7,7 +7,7 @@ require 'fileutils'
 task :default => %w[ smc:buildSMC dbc:builddbc test:all gcov:all utils:gcov smc:buildSMCDocs dbc:builddbcDocs autogen:gitlog autogen:doxygen release  ]
 
 namespace :autogen do
- task :doxygen => %w[gitlog xmlGen] do
+ task :doxygen => %w[gitlog] do
   puts "generating Doxygen"
   sh ('xsltproc docs/stylesheet_report.xsl build/artifacts/test/report.xml > build/artifacts/test/report.html')
   #get current Commit to add as VersionNumber
@@ -28,11 +28,6 @@ namespace :autogen do
   #generate HTMl from xml
   sh ('xsltproc docs/stylesheet_gitlog.xsl build/artifacts/docs/log_pretty.xml > build/artifacts/docs/log.html')
  end
-task :xmlGen do
-  FileUtils.mkdir_p 'build/artifacts/docs'
-  #generate dbc html
-  #sh ('xsltproc docs/stylesheet_gitlog.xsl build/artifacts/docs/log_pretty.xml > build/artifacts/docs/log.html')
-end
 end
 
 driverlib = "/home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4/driverlib/lib/gcc/m4f/libdriver.a"
