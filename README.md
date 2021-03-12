@@ -1,6 +1,7 @@
 Projectexample built around 
  - Ceedling
  - Doxygen
+ - dbcc as dbc compiler
  - SMC for Generation of Statemachine Code
 Requires following tools
 <code>sudo install ruby</code>
