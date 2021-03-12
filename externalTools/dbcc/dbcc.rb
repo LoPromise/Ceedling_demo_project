@@ -2,15 +2,6 @@ require "ceedling"
 require "net/http"
 
 namespace :dbc do
- task :fetch do
-   Dir.chdir("externalTools/dbcc") do
-    #sh "git clone https://github.com/howerj/dbcc.git"
-    Dir.chdir("dbcc") do
-      sh "make -j4"
-      sh "cp dbcc ../dbccc"
-    end
-   end
- end
  rule '.dbc' => ['.dbc'] do |t|
   puts "build " + "#{t.source}"
   current_root = __dir__
@@ -43,6 +34,7 @@ namespace :dbc do
  
  task :builddbcDocs do
   puts "Compiling dbcDocs"
+  FileUtils.mkdir_p 'build/artifacts/docs'
   files = FileList["src/**/*.dbc"].ext(".dbcdoc")
   Rake::Task[files].execute
  end

@@ -1,23 +1,14 @@
+#include "sys_common.h"
 #include "led.h"
-#include <FreeRTOS.h>
 
-void delay(void);
-
-int main(void){
+void main(void)
+{
  while(1)
  {
   led_turn_on();
-  delay();
+  //delay();
   led_turn_off();
-  delay();
+  //delay();
  }
 }
 
-void delay(void)
-{
-    volatile int count;
-
-    for(count = 0; count < 400000; count++)
-    {
-    }
-}

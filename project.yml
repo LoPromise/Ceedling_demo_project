@@ -20,7 +20,7 @@
 
 :release_build:
   :output: MyApp.axp
-  :use_assembly: FALSE
+  :use_assembly: TRUE
 
 :environment:
   - path:
@@ -36,15 +36,21 @@
 #    - -:test/support
   :source:
     - src/**
-    #- 
-    #- 
+    - ../TIHercules/Testing/source/*
+    #- /home/markus/ti/gcc-arm-none-eabi-9-2019-q4-major/
+    #- /home/markus/ti/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/
+    #-
   :include:
-    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4
-    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/third_party/CMSIS/Include
-    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4/driverlib
-    - /home/markus/ti/FreeRTOSv202012.00/FreeRTOS/Source/include
-    - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/kernel/freertos/builds/MSP432E411Y_BGAEVM/release
-    - /home/markus/ti/FreeRTOSv202012.00/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1
+    #- /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4
+    #- /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/third_party/CMSIS/Include
+    #- /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/
+    #- /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/drivers
+    #- /home/markus/ti/FreeRTOSv202012.00/FreeRTOS/Source/include
+    #- /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/kernel/freertos/builds/MSP432E411Y_BGAEVM/release
+    #- /home/markus/ti/FreeRTOSv202012.00/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1
+    #- /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/posix/gcc
+    - ../TIHercules/Testing/include
+    #- /home/markus/ti/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include
     - externalTools/SMC
 #  :support:
 #    - test/support
@@ -95,15 +101,14 @@
     :executable: arm-none-eabi-gcc
     :arguments:
       - ${1}
-      - -mthumb
-      - -mcpu=cortex-m4
-      - -march=armv7e-m
+      - -marm
+      - -march=armv7-r
       - -mfloat-abi=hard
-      - -mfpu=fpv4-sp-d16
+      - -mfpu=vfpv3-d16
       - -ffunction-sections
       - -fdata-sections
-      - -MD
-      - -std=c99
+      - -MMD
+      #- -std=c99
       - -Wall
       - -pedantic
       - -c
@@ -116,15 +121,35 @@
       - -I"$": COLLECTION_PATHS_INCLUDE
       - -Dgcc
       - -o ${2}
-  :release_linker:
-    :executable: arm-none-eabi-ld
-    :arguments: 
-      - -T project.ld
-      - --entry ResetISR
-      - --gc-sections
-      - ${1}
+  :release_assembler: 
+    :executable: arm-none-eabi-as
+    :arguments:
+      - -g ${1}
+#      - -mccs
+      - -march=armv7-r
+      - -mfloat-abi=hard
+      - -mfpu=vfpv3-d16
+      - -mlittle-endian
       - -o ${2}
-      - /home/markus/ti/simplelink_msp432e4_sdk_4_20_00_12/source/ti/devices/msp432e4/driverlib/lib/gcc/m4f/msp432e4_driverlib.a
+  :release_linker:
+    :executable: arm-none-eabi-gcc
+    :arguments:
+      #- -T project.ld
+      #- --entry _c_int00
+      #- --gc-sections
+      - -mfpu=vfpv3-d16
+      - -output_float_abi=auto
+      - -Og
+      - -g
+      - -gdwarf-3
+      - -gstrict-dwarf
+      - -Wall
+      - -specs="nosys.specs"
+      - -o ${2}
+      - ${1}
+      #- /home/markus/ti/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/lib/arm/v5te/hard/libc_nano.a
+      
+
 # Ceedling defaults to using gcc for compiling, linking, etc.
 # As [:tools] is blank, gcc will be used (so long as it's in your system path)
 # See documentation to configure a given toolchain for use
